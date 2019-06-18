@@ -6,11 +6,12 @@ namespace SimpleQuiz
     {
         static void Main(string[] args)
         {
-            // ######## Quiz 1번 #######
-            // 3과 5의 배수 숫자의 합 구하기
+            // ######## Quiz 2번 #######
+            // 400만을 초과하지 않는 값 중에 짝수 수열의 합
 
             Quiz_1 quiz = new Quiz_1();
-            quiz.func1();
+            //quiz.func1();
+            quiz.func2();
         }
     }
 }
