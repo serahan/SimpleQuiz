@@ -14,7 +14,8 @@ namespace SimpleQuiz
             //quiz.func2();
             //quiz.func3();
             //quiz.func4();
-            quiz.func5();
+            //quiz.func5();
+            quiz.func6();
         }
     }
 }
