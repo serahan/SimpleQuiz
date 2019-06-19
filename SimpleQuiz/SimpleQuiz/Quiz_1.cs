@@ -80,5 +80,61 @@ namespace SimpleQuiz
             }
             Console.WriteLine(max);
         }
+
+        public void func4()
+        {
+            // ######## Quiz 4번 #######
+            // 2520은 1부터 10까지의 숫자로 모두 나눠지는 최소의 수입니다.
+            // 1부터 20까지의 숫자로 모두 나눠지는 최소의 수를 구하세요
+            // 232 792 560
+
+            int[] factors = { 2, 3, 5, 7, 11, 13, 17, 19 };
+            int[] amounts = new int[factors.Length];
+            int[] comp = new int[factors.Length];
+            int number;
+            int temp = 0;
+
+            for(int i=2;i<20;i++)
+            {
+                number = i;
+                for (int j=0;j<factors.Length;j++)
+                {
+                    if (number==1)
+                    {
+                        break;
+                    }
+                    if(number%factors[j]==0)
+                    {
+                        amounts[j]++;
+                        number = number / factors[j];
+                        j = -1;
+                    }
+                }
+
+                for(int j=0;j<factors.Length;j++)
+                {
+                    if(amounts[j]>comp[j])
+                    {
+                        comp[j] = amounts[j];
+                        amounts[j] = 0;
+                    }
+                }
+                for (int j = 0; j < factors.Length; j++)
+                {
+                    amounts[j] = 0;
+                }
+            }
+
+            int sum = 1;
+            for (int i = 0; i < factors.Length; i++)
+            {
+                for(int j=0;j<comp[i];j++)
+                {
+                    sum *= factors[i];
+                }
+            }
+            Console.WriteLine(sum);
+
+        }
     }
 }
