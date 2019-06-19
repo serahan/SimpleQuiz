@@ -6,12 +6,13 @@ namespace SimpleQuiz
     {
         static void Main(string[] args)
         {
-            // ######## Quiz 2번 #######
-            // 400만을 초과하지 않는 값 중에 짝수 수열의 합
+            // ######## Quiz 3번 #######
+            // 600851475143의 최대 소인수
 
             Quiz_1 quiz = new Quiz_1();
             //quiz.func1();
-            quiz.func2();
+            //quiz.func2();
+            quiz.func3();
         }
     }
 }

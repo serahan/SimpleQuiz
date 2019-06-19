@@ -61,5 +61,24 @@ namespace SimpleQuiz
                 return Pib(a - 2) + Pib(a - 1);
             }
         }
+
+        public void func3()
+        {
+            long number = 600851475143;
+            int max = 0;
+
+            for(int i=2;i<=number;i++)
+            {
+                if(number%i==0)
+                {
+                    if(i>max)
+                    {
+                        number = number / i;
+                        max = i;
+                    }
+                }
+            }
+            Console.WriteLine(max);
+        }
     }
 }
