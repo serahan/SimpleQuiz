@@ -92,7 +92,6 @@ namespace SimpleQuiz
             int[] amounts = new int[factors.Length];
             int[] comp = new int[factors.Length];
             int number;
-            int temp = 0;
 
             for(int i=2;i<20;i++)
             {
@@ -135,6 +134,33 @@ namespace SimpleQuiz
             }
             Console.WriteLine(sum);
 
+        }
+
+        public void func5()
+        {
+            // ######## Quiz 5번 #######
+            // 10001번째 소수를 구하시오.
+            // 104743
+
+            int index = 0;
+            int count = 0;
+
+            for(int i=1;index<10001;i++)
+            {
+                for (int j = 1; j <= i; j++)
+                {
+                    if (i % j == 0)
+                    {
+                        count++;
+                    }
+                }
+                if(count==2)
+                {
+                    index++;
+                    Console.WriteLine($"{index}번째 소수 : {i}");
+                }
+                count = 0;
+            }
         }
     }
 }
