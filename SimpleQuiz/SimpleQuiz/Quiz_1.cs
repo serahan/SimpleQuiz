@@ -165,6 +165,10 @@ namespace SimpleQuiz
 
         public void func6()
         {
+            // ########## 6번문제 ##########
+            // 20×20 격자에서 연속된 네 숫자의 곱 중 최대값
+            // 70600674
+
             int[,] map = new int[,] { { 08,02,22,97,38,15,00,40,00,75,04,05,07,78,52,12,50,77,91,08 },
                    { 49,49,99,40,17,81,18,57,60,87,17,40,98,43,69,48,04,56,62,00 },
                    { 81,49,31,73,55,79,14,29,93,71,40,67,53,88,30,03,49,13,36,65 },
@@ -187,8 +191,8 @@ namespace SimpleQuiz
                    { 01,70,54,71,83,51,54,69,16,92,33,48,61,43,52,01,89,19,67,48 }
             };
             int max = 0;
-            int[] arr = new int[4]; // 나중에 버릴애
-            int sum = 0;
+            int[] arr = new int[4];
+            int sum = 1;
 
             for (int i = 0; i < 20; i++) // 수평
             {
@@ -200,36 +204,73 @@ namespace SimpleQuiz
                         arr[1] = map[i, j + 1];
                         arr[2] = map[i, j + 2];
                         arr[3] = map[i, j + 3];
-                        sum = arr[0] + arr[1] + arr[2] + arr[3];
+                        sum = arr[0] * arr[1] * arr[2] * arr[3];
                         if (sum > max)
                         {
                             max = sum;
                         }
                     }
                 }
+
             } // 수평
 
-            //for(int i=0;i < 20; i++)
-            //{
-            //    for (int j = 0; j < 20; j++)
-            //    {
-            //        if ((0 <= i) && (i <= 16))
-            //        {
-            //            arr[0] = map[i, j];
-            //            arr[1] = map[i + 1, j];
-            //            arr[2] = map[i + 2, j];
-            //            arr[3] = map[i + 3, j];
-            //            sum = arr[0] + arr[1] + arr[2] + arr[3];
-            //            if(sum>max)
-            //            {
-            //                max = sum;
-            //            }
-            //        }
-            //    }
-            //}
 
+            for (int i = 0; i < 20; i++)
+            {
+                for (int j = 0; j < 20; j++)
+                {
+                    if ((0 <= i) && (i <= 16))
+                    {
+                        arr[0] = map[i, j];
+                        arr[1] = map[i + 1, j];
+                        arr[2] = map[i + 2, j];
+                        arr[3] = map[i + 3, j];
+                        sum = arr[0] * arr[1] * arr[2] * arr[3];
+                        if (sum > max)
+                        {
+                            max = sum;
+                        }
+                    }
+                }
+            }
 
+            for (int i = 0; i < 20; i++)
+            {
+                for (int j = 0; j < 20; j++)
+                {
+                    if ((3 <= j) && (j <= 19) && (0 <= i) && (i <= 16))
+                    {
+                        arr[0] = map[i, j];
+                        arr[1] = map[i + 1, j - 1];
+                        arr[2] = map[i + 2, j - 2];
+                        arr[3] = map[i + 3, j - 3];
+                        sum = arr[0] * arr[1] * arr[2] * arr[3];
+                        if (sum > max)
+                        {
+                            max = sum;
+                        }
+                    }
+                }
+            }  // 아래 왼쪽
 
+            for (int i=0;i<20;i++)
+            {
+                for(int j=0;j<20;j++)
+                {
+                    if((0<=i)&&(i<=16)&&(0<=j)&&(j<=16))
+                    {
+                        arr[0] = map[i, j];
+                        arr[1] = map[i + 1, j + 1];
+                        arr[2] = map[i + 2, j + 2];
+                        arr[3] = map[i + 3, j + 3];
+                        sum = arr[0] * arr[1] * arr[2] * arr[3];
+                        if (sum > max)
+                        {
+                            max = sum;
+                        }
+                    }
+                }
+            }
             Console.WriteLine(max);
         }
     }
