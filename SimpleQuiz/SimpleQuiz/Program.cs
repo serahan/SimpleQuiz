@@ -11,11 +11,11 @@ namespace SimpleQuiz
 
             Quiz_1 quiz = new Quiz_1();
             //quiz.func1();
-            //quiz.func2();
+            quiz.func2();
             //quiz.func3();
             //quiz.func4();
             //quiz.func5();
-            quiz.func6();
+            //quiz.func6();
         }
     }
 }

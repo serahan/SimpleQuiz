@@ -30,13 +30,14 @@ namespace SimpleQuiz
         {
             // ######## Quiz 2번 #######
             // 400만을 초과하지 않는 값 중에 짝수 수열의 합
+            // 4613732
 
             int sum = 0;
             int index = 1;
 
             while (Pib(index) < 4000000)
             {
-                if (index % 2 == 0)
+                if (Pib(index) % 2 == 0)
                 {
                     sum += Pib(index);
                 }
