@@ -274,5 +274,124 @@ namespace SimpleQuiz
             }
             Console.WriteLine(max);
         }
+
+        public void func7()
+        {
+            // ########## 7번문제 ##########
+            // 1부터 5까지의 숫자를 영어로 쓰면 one, two, three, four, five 이고,
+            // 각 단어의 길이를 더하면 3 + 3 + 5 + 4 + 4 = 19 이므로 사용된 글자는 모두 19개입니다.
+            // 1부터 1,000까지 영어로 썼을 때는 모두 몇 개의 글자를 사용해야 할까요?
+            // 21124
+
+            String[] one_to_nine = { "one", "two", "three", "four", "five", "six", "seven", "eigth", "nine" }; // 1 ~ 9
+            String[] eleven_to_nineteen = { "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen" };
+            String[] ten_to_ninety = { "ten", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"};
+            int sum = 0;
+            int index = 1;
+            int ten_number = 0;
+
+            for (int i = 1; index <= 1000; i++)
+            {
+                if((1 <= index) && (index <= 9))
+                {
+                    sum += one_to_nine[index-1].Length;
+                    //Console.Write($"{one_to_nine[index - 1]} ");
+                }
+                else if((10<=index)&&(index<=99))
+                {
+                    if ((11 <= index) && (index <= 19))
+                    {
+                        sum += eleven_to_nineteen[(index - 10) - 1].Length;
+                        //Console.Write($"{eleven_to_nineteen[(index - 10) - 1]} ");
+                    }
+                    else if (index % 10 == 0)
+                    {
+                        ten_number = index / 10;
+                        sum += ten_to_ninety[ten_number - 1].Length;
+                        //Console.Write($"{ten_to_ninety[ten_number - 1]} ");
+                    }
+                    else
+                    {
+                        ten_number = index / 10;
+                        sum += ten_to_ninety[ten_number - 1].Length;
+                        //Console.Write($"{ten_to_ninety[ten_number - 1]} ");
+                        sum += one_to_nine[index - (ten_number * 10) - 1].Length;
+                        //Console.Write($"{one_to_nine[index - (ten_number * 10) - 1]} ");
+                    }
+                }
+                else if((100<=index)&&(index<=999))
+                {
+                    if (index % 100 == 0) // 100의 배수 = 10의자리 1의자리 X
+                    {
+                        sum += one_to_nine[(index / 100) - 1].Length;
+                        sum += "hundred".Length;
+
+                        //Console.Write($"{one_to_nine[(index / 100) - 1]} ");
+                        //Console.Write("hundred ");
+                    }
+                    else if (index % 10 == 0) // 10의 배수 = 1의 자리 X
+                    {
+                        ten_number = (index - (index / 100) * 100) / 10; // 십의자리
+
+                        sum += one_to_nine[(index / 100) - 1].Length;
+                        sum += "hundred".Length;
+                        sum += "and".Length;
+
+                        sum += ten_to_ninety[ten_number - 1].Length;
+
+                        //Console.Write($"{one_to_nine[(index / 100) - 1]} ");
+                        //Console.Write("hundred and ");
+                        //Console.Write($"{ten_to_ninety[ten_number - 1]} ");
+                    }
+                    else if ((11 <= index % 100) && (index % 100 <= 19))
+                    {
+                        ten_number = index % 100;
+
+                        sum += one_to_nine[(index / 100) - 1].Length;
+                        sum += "hundred".Length;
+                        sum += "and".Length;
+
+                        //Console.Write($"{one_to_nine[(index / 100) - 1]} ");
+                        //Console.Write("hundred and ");
+
+                        sum += eleven_to_nineteen[(index-(ten_number / 10 )*10)%10 - 1].Length;
+
+                        //Console.Write($"{eleven_to_nineteen[(index - (ten_number / 10) * 10) % 10 - 1]} ");
+                    }
+                    else
+                    {
+                        ten_number = (index - (index / 100) * 100) / 10; // 십의자리
+
+                        sum += one_to_nine[(index / 100) - 1].Length;
+                        sum += "hundred".Length;
+                        sum += "and".Length;
+
+                        //Console.Write($"{one_to_nine[(index / 100) - 1]} ");
+                        //Console.Write("hundred and ");
+
+                        if (ten_number != 0)// 십의자리 0일때
+                        {
+                            sum += ten_to_ninety[ten_number - 1].Length;
+                            //Console.Write($"{ten_to_ninety[ten_number - 1]} ");
+                        }
+
+                        ten_number = index % 10;
+                        sum += one_to_nine[ten_number - 1].Length;
+
+                        //Console.Write($"{one_to_nine[ten_number - 1]} ");
+                    }
+                }
+                else if(index==1000)
+                {
+                    sum += "one".Length;
+                    sum += "thousand".Length;
+                    //Console.Write("one thousand ");
+                }
+                //Console.Write($"{index} ");
+                //Console.WriteLine($" {sum} ");
+                index++;
+            }
+            Console.WriteLine($"{sum}");
+        }
     }
 }
