@@ -49,11 +49,11 @@ namespace SimpleQuiz
 
         public int Pib(int a)  // func2()
         {
-            if(a == 1)
+            if (a == 1)
             {
                 return 1;
             }
-            else if(a==2)
+            else if (a == 2)
             {
                 return 2;
             }
@@ -68,11 +68,11 @@ namespace SimpleQuiz
             long number = 600851475143;
             int max = 0;
 
-            for(int i=2;i<=number;i++)
+            for (int i = 2; i <= number; i++)
             {
-                if(number%i==0)
+                if (number % i == 0)
                 {
-                    if(i>max)
+                    if (i > max)
                     {
                         number = number / i;
                         max = i;
@@ -94,16 +94,16 @@ namespace SimpleQuiz
             int[] comp = new int[factors.Length];
             int number;
 
-            for(int i=2;i<20;i++)
+            for (int i = 2; i < 20; i++)
             {
                 number = i;
-                for (int j=0;j<factors.Length;j++)
+                for (int j = 0; j < factors.Length; j++)
                 {
-                    if (number==1)
+                    if (number == 1)
                     {
                         break;
                     }
-                    if(number%factors[j]==0)
+                    if (number % factors[j] == 0)
                     {
                         amounts[j]++;
                         number = number / factors[j];
@@ -111,9 +111,9 @@ namespace SimpleQuiz
                     }
                 }
 
-                for(int j=0;j<factors.Length;j++)
+                for (int j = 0; j < factors.Length; j++)
                 {
-                    if(amounts[j]>comp[j])
+                    if (amounts[j] > comp[j])
                     {
                         comp[j] = amounts[j];
                         amounts[j] = 0;
@@ -128,7 +128,7 @@ namespace SimpleQuiz
             int sum = 1;
             for (int i = 0; i < factors.Length; i++)
             {
-                for(int j=0;j<comp[i];j++)
+                for (int j = 0; j < comp[i]; j++)
                 {
                     sum *= factors[i];
                 }
@@ -146,7 +146,7 @@ namespace SimpleQuiz
             int index = 0;
             int count = 0;
 
-            for(int i=1;index<10001;i++)
+            for (int i = 1; index < 10001; i++)
             {
                 for (int j = 1; j <= i; j++)
                 {
@@ -155,7 +155,7 @@ namespace SimpleQuiz
                         count++;
                     }
                 }
-                if(count==2)
+                if (count == 2)
                 {
                     index++;
                     Console.WriteLine($"{index}번째 소수 : {i}");
@@ -254,11 +254,11 @@ namespace SimpleQuiz
                 }
             }  // 아래 왼쪽
 
-            for (int i=0;i<20;i++)
+            for (int i = 0; i < 20; i++)
             {
-                for(int j=0;j<20;j++)
+                for (int j = 0; j < 20; j++)
                 {
-                    if((0<=i)&&(i<=16)&&(0<=j)&&(j<=16))
+                    if ((0 <= i) && (i <= 16) && (0 <= j) && (j <= 16))
                     {
                         arr[0] = map[i, j];
                         arr[1] = map[i + 1, j + 1];
@@ -285,19 +285,19 @@ namespace SimpleQuiz
 
             String[] one_to_nine = { "one", "two", "three", "four", "five", "six", "seven", "eigth", "nine" }; // 1 ~ 9
             String[] eleven_to_nineteen = { "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen" };
-            String[] ten_to_ninety = { "ten", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"};
+            String[] ten_to_ninety = { "ten", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety" };
             int sum = 0;
             int index = 1;
             int ten_number = 0;
 
             for (int i = 1; index <= 1000; i++)
             {
-                if((1 <= index) && (index <= 9))
+                if ((1 <= index) && (index <= 9))
                 {
-                    sum += one_to_nine[index-1].Length;
+                    sum += one_to_nine[index - 1].Length;
                     //Console.Write($"{one_to_nine[index - 1]} ");
                 }
-                else if((10<=index)&&(index<=99))
+                else if ((10 <= index) && (index <= 99))
                 {
                     if ((11 <= index) && (index <= 19))
                     {
@@ -319,7 +319,7 @@ namespace SimpleQuiz
                         //Console.Write($"{one_to_nine[index - (ten_number * 10) - 1]} ");
                     }
                 }
-                else if((100<=index)&&(index<=999))
+                else if ((100 <= index) && (index <= 999))
                 {
                     if (index % 100 == 0) // 100의 배수 = 10의자리 1의자리 X
                     {
@@ -354,7 +354,7 @@ namespace SimpleQuiz
                         //Console.Write($"{one_to_nine[(index / 100) - 1]} ");
                         //Console.Write("hundred and ");
 
-                        sum += eleven_to_nineteen[(index-(ten_number / 10 )*10)%10 - 1].Length;
+                        sum += eleven_to_nineteen[(index - (ten_number / 10) * 10) % 10 - 1].Length;
 
                         //Console.Write($"{eleven_to_nineteen[(index - (ten_number / 10) * 10) % 10 - 1]} ");
                     }
@@ -381,7 +381,7 @@ namespace SimpleQuiz
                         //Console.Write($"{one_to_nine[ten_number - 1]} ");
                     }
                 }
-                else if(index==1000)
+                else if (index == 1000)
                 {
                     sum += "one".Length;
                     sum += "thousand".Length;
@@ -392,6 +392,117 @@ namespace SimpleQuiz
                 index++;
             }
             Console.WriteLine($"{sum}");
+        }
+
+        public void func8()
+        {
+            // ########## 8번문제 ##########
+            // 다음은 달력에 관한 몇 가지 일반적인 정보입니다(필요한 경우 좀 더 연구를 해 보셔도 좋습니다).
+            // 1900년 1월 1일은 월요일이다.
+            // 4월, 6월, 9월, 11월은 30일까지 있고, 1월, 3월, 5월, 7월, 8월, 10월, 12월은 31일까지 있다.
+            // 2월은 28일이지만, 윤년에는 29일까지 있다.
+            // 윤년은 연도를 4로 나누어 떨어지는 해를 말한다.
+            // 하지만 400으로 나누어 떨어지지 않는 매 100년째는 윤년이 아니며, 400으로 나누어 떨어지면 윤년이다
+            // 20세기(1901년 1월 1일 ~2000년 12월 31일) 에서, 매월 1일이 일요일인 경우는 총 몇 번입니까?
+
+            int[] thirty_days = { 4, 6, 9, 11 }; // 30일까지
+            int[] thirty_one_days = { 1, 3, 5, 7, 8, 10, 12 }; // 31일까지
+            int[,] calendar = new int[6, 7]; // 일 월 화 수 목 금 토
+
+            int year = 1901;
+            int month = 2;
+            int day = 1;
+
+            int leap_year = 0;
+            int last_day = 0;  // 마지막 요일을 저장. => 다음 달 넘어갈때 배열 첫번째 행으로 이동해서 그 다음날부터 1일.
+            int index = 1;  // 
+
+            leap_year=(year/400)
+
+            while ((year!=2000)||(month!=12)||(day!=31))
+            {
+                // 29일까지 있는 월인 경우
+                if ((year % 4 == 0)/*||()*/) // 윤년 : 연도를 4로 나누어 떨어지는 해
+                {
+                    for(int i=0;i<6;i++)
+                    {
+                        for(int j=0;j<7;j++)
+                        {
+                            if(index<=29)
+                            {
+                                calendar[i, j] = index;
+                                if ((0 <= calendar[i, j]) && (calendar[i, j] <= 9))
+                                {
+                                    Console.Write($"0{calendar[i, j]} ");
+                                }
+                                else
+                                {
+                                    Console.Write($"{calendar[i, j]} ");
+                                }
+                                index++;
+                            }
+                        }
+                    }
+                }
+                else if() // 28일까지 있는 월인 경우
+
+
+                    // 30일까지 있는 월인 경우
+                    for (int k = 0; k < thirty_days.Length; k++)
+                {
+                    if (month == thirty_days[k])
+                    {
+                        for (int i = 0; i < 6; i++)
+                        {
+                            for (int j = 0; j < 7; j++)
+                            {
+                                if (index <= 30)
+                                {
+                                    calendar[i, j] = index;
+                                    if ((0 <= calendar[i, j]) && (calendar[i, j] <= 9))
+                                    {
+                                        Console.Write($"0{calendar[i, j]} ");
+                                    }
+                                    else
+                                    {
+                                        Console.Write($"{calendar[i, j]} ");
+                                    }
+                                    index++;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // 31일까지 있는 월인 경우
+                for (int k = 0; k < thirty_one_days.Length; k++)
+                {
+                    if (month == thirty_one_days[k])
+                    {
+                        for (int i = 0; i < 6; i++)
+                        {
+                            for (int j = 0; j < 7; j++)
+                            {
+                                if (index <= 31)
+                                {
+                                    calendar[i, j] = index;
+                                    if ((0 <= calendar[i, j]) && (calendar[i, j] <= 9))
+                                    {
+                                        Console.Write($"0{calendar[i, j]} ");
+                                    }
+                                    else
+                                    {
+                                        Console.Write($"{calendar[i, j]} ");
+                                    } // cw tab 2번
+                                    index++;
+                                }
+                            }
+                            Console.WriteLine();
+                        }
+                    }
+                }
+                index = 0;
+            }
         }
     }
 }
