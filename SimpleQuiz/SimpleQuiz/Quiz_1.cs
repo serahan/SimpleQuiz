@@ -609,5 +609,93 @@ namespace SimpleQuiz
             }
             Console.WriteLine($"{SundayCount} ");
         }
+
+        public void func9()
+        {
+            // n! 이라는 표기법은 n × (n − 1) × ... × 3 × 2 × 1을 뜻합니다.
+            // 예를 들자면 10! = 10 × 9 × ... × 3 × 2 × 1 = 3628800 이 되는데,
+            // 여기서 10!의 각 자리수를 더해 보면 3 + 6 + 2 + 8 + 8 + 0 + 0 = 27 입니다.
+
+            // 100! 의 자리수를 모두 더하면 얼마입니까?
+            int[] factorialValue = new int[160];
+            int[] CopyValue = new int[160];
+            int top = 1;
+
+            // #################################
+            // 배열 30개짜리 만들어서 한 자릿수씩 배열에 입력하는건 어떨까
+
+            // 초기 설정
+            factorialValue[0] = 1;
+
+            for (int index = 2; index <= 100; index++) // 팩토리얼 값 더하기
+            {
+                top = CalculateFactorial(factorialValue, CopyValue,index, top);
+            }
+        }
+
+        public int CalculateFactorial(int[] factorialValue, int[] CopyValue,int index, int top)
+        {
+            int doubleValue = 0;
+            int fakeTop = top;
+            for (int num = 0; num < fakeTop; num++)
+            {
+                doubleValue = factorialValue[num] * index;
+                if((CopyValue[num]+doubleValue) < 10)
+                {
+                    CopyValue[num] += doubleValue;
+                }
+                else if ((CopyValue[num] + doubleValue) >= 10)
+                {
+                    AddValue(CopyValue, num, doubleValue, index);
+                    if (num+1 >= top)
+                    {
+                        top++;
+                    }
+                }
+            }
+            MakeCopyValue(CopyValue, factorialValue, top);
+            MakeZero(CopyValue, top);
+            return top;
+        }
+
+        public void AddValue(int[] CopyValue, int num, int doubleValue, int index)
+        {
+            // 1의 자리 입력
+            if (CopyValue[num] + (doubleValue % 10) < 10)
+            {
+                CopyValue[num] += doubleValue % 10;
+            }
+            else if(CopyValue[num] + (doubleValue%10)>=10)
+            {
+                // 문제 : AddValue(CopyValue, num + 1, (CopyValue[num + 1] + (doubleValue / 10)), index);
+            }
+
+            // 기존 10의 자리 + 올라온 10의 자리 합이 10보다 클 때
+            if((CopyValue[num + 1] + (doubleValue / 10)) >= 10)
+            {
+                
+            }
+            if((CopyValue[num + 1] + (doubleValue / 10)) < 10)
+            {
+                CopyValue[num + 1] = (CopyValue[num + 1] + (doubleValue / 10));
+            }
+
+        }
+
+        public void MakeCopyValue(int[] CopyValue, int[] factorialValue, int top)
+        {
+            for(int num=0;num<top;num++)
+            {
+                factorialValue[num] = CopyValue[num];
+            }
+        }
+
+        public void MakeZero(int[] CopyValue, int top)
+        {
+            for(int i=0;i<top;i++)
+            {
+                CopyValue[i] = 0;
+            }
+        }
     }
 }
