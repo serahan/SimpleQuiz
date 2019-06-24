@@ -410,53 +410,88 @@ namespace SimpleQuiz
             int[,] calendar = new int[6, 7]; // 일 월 화 수 목 금 토
 
             int year = 1901;
-            int month = 2;
+            int month = 1;
             int day = 1;
 
-            int leap_year = 0;
-            int last_day = 0;  // 마지막 요일을 저장. => 다음 달 넘어갈때 배열 첫번째 행으로 이동해서 그 다음날부터 1일.
+            int last_day = 1;  // 마지막 요일을 저장. => 다음 달 넘어갈때 배열 첫번째 행으로 이동해서 그 다음날부터 1일.
             int index = 1;  // 
+            int count = 0;
+            int SundayCount = 0;
 
-            leap_year=(year/400)
-
-            while ((year!=2000)||(month!=12)||(day!=31))
+            while ((year!=2001)||(month!=1)||(day!=1))
             {
-                // 29일까지 있는 월인 경우
-                if ((year % 4 == 0)/*||()*/) // 윤년 : 연도를 4로 나누어 떨어지는 해
+                Console.WriteLine($"####{year}년 {month}월 #####");
+                Console.WriteLine("일 월 화 수 목 금 토");
+                // 하지만 400으로 나누어 떨어지지 않는 매 100년째는 윤년이 아니며, 400으로 나누어 떨어지면 윤년이다
+                if (year % 400 != 0)
                 {
-                    for(int i=0;i<6;i++)
-                    {
-                        for(int j=0;j<7;j++)
-                        {
-                            if(index<=29)
-                            {
-                                calendar[i, j] = index;
-                                if ((0 <= calendar[i, j]) && (calendar[i, j] <= 9))
-                                {
-                                    Console.Write($"0{calendar[i, j]} ");
-                                }
-                                else
-                                {
-                                    Console.Write($"{calendar[i, j]} ");
-                                }
-                                index++;
-                            }
-                        }
-                    }
+                    //leap_year = year / 400
+                    count++;
                 }
-                else if() // 28일까지 있는 월인 경우
 
-
-                    // 30일까지 있는 월인 경우
-                    for (int k = 0; k < thirty_days.Length; k++)
+                if(year==1920)
                 {
-                    if (month == thirty_days[k])
+                    Console.WriteLine("");
+                }
+                if (last_day == 0)
+                {
+                    SundayCount++;
+                }
+                // 29일까지 있는 월인 경우 윤년 (연도를 4로 나누어 떨어지는 해)
+                if ((year % 4 == 0) || (count % 100 == 0))
+                {
+                    if(month==2)
                     {
                         for (int i = 0; i < 6; i++)
                         {
                             for (int j = 0; j < 7; j++)
                             {
-                                if (index <= 30)
+                                if (index <= 29)
+                                {
+                                    if (last_day > 0)
+                                    {
+                                        Console.Write("  ");
+                                        last_day--;
+                                    }
+                                    else
+                                    {
+                                        calendar[i, j] = index;
+                                        if ((0 <= calendar[i, j]) && (calendar[i, j] <= 9))
+                                        {
+                                            Console.Write($"0{calendar[i, j]} ");
+                                        }
+                                        else
+                                        {
+                                            Console.Write($"{calendar[i, j]} ");
+                                        }
+                                        index++;
+                                    }
+                                }
+                                if (index == 30)
+                                {
+                                    last_day = j;
+                                    i = 6;
+                                    j = 7;
+                                }
+                            }
+                            Console.WriteLine("");
+                        }
+                    }
+                }
+                else if(month==2) // 28일까지 있는 월인 경우
+                {
+                    for(int i=0;i<6;i++)
+                    {
+                        for(int j=0;j<7;j++)
+                        {
+                            if (index<=28)
+                            {
+                                if (last_day > 0)
+                                {
+                                    Console.Write("   ");
+                                    last_day--;
+                                }
+                                else
                                 {
                                     calendar[i, j] = index;
                                     if ((0 <= calendar[i, j]) && (calendar[i, j] <= 9))
@@ -470,6 +505,55 @@ namespace SimpleQuiz
                                     index++;
                                 }
                             }
+                            if (index == 29)
+                            {
+                                last_day = j;
+                                i = 6;
+                                j = 7;
+                            }
+                        }
+                        Console.WriteLine("");
+                    }
+                }
+
+                // 30일까지 있는 월인 경우
+                for (int k = 0; k < thirty_days.Length; k++)
+                {
+                    if (month == thirty_days[k])
+                    {
+                        for (int i = 0; i < 6; i++)
+                        {
+                            for (int j = 0; j < 7; j++)
+                            {
+                                if (index <= 30)
+                                {
+                                    if (last_day > 0)
+                                    {
+                                        Console.Write("   ");
+                                        last_day--;
+                                    }
+                                    else
+                                    {
+                                        calendar[i, j] = index;
+                                        if ((0 <= calendar[i, j]) && (calendar[i, j] <= 9))
+                                        {
+                                            Console.Write($"0{calendar[i, j]} ");
+                                        }
+                                        else
+                                        {
+                                            Console.Write($"{calendar[i, j]} ");
+                                        }
+                                        index++;
+                                    }
+                                }
+                                if (index == 31)
+                                {
+                                    last_day = j;
+                                    i = 6;
+                                    j = 7;
+                                }
+                            }
+                            Console.WriteLine("");
                         }
                     }
                 }
@@ -485,24 +569,45 @@ namespace SimpleQuiz
                             {
                                 if (index <= 31)
                                 {
-                                    calendar[i, j] = index;
-                                    if ((0 <= calendar[i, j]) && (calendar[i, j] <= 9))
+                                    if (last_day > 0)
                                     {
-                                        Console.Write($"0{calendar[i, j]} ");
+                                        Console.Write("   ");
+                                        last_day--;
                                     }
                                     else
                                     {
-                                        Console.Write($"{calendar[i, j]} ");
-                                    } // cw tab 2번
-                                    index++;
+                                        calendar[i, j] = index;
+                                        if ((0 <= calendar[i, j]) && (calendar[i, j] <= 9))
+                                        {
+                                            Console.Write($"0{calendar[i, j]} ");
+                                        }
+                                        else
+                                        {
+                                            Console.Write($"{calendar[i, j]} ");
+                                        } // cw tab 2번
+                                        index++;
+                                    }
+                                }
+                                if (index == 32)
+                                {
+                                    last_day = j;
+                                    i = 6;
+                                    j = 7;
                                 }
                             }
                             Console.WriteLine();
                         }
                     }
                 }
-                index = 0;
+                index = 1;
+                month++;
+                if(month>12)
+                {
+                    month = 1;
+                    year++;
+                }
             }
+            Console.WriteLine($"{SundayCount} ");
         }
     }
 }
