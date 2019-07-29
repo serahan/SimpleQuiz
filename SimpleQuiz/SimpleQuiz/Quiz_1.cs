@@ -418,7 +418,7 @@ namespace SimpleQuiz
             int count = 0;
             int SundayCount = 0;
 
-            while ((year!=2001)||(month!=1)||(day!=1))
+            while ((year != 2001) || (month != 1) || (day != 1))
             {
                 Console.WriteLine($"####{year}년 {month}월 #####");
                 Console.WriteLine("일 월 화 수 목 금 토");
@@ -429,7 +429,7 @@ namespace SimpleQuiz
                     count++;
                 }
 
-                if(year==1920)
+                if (year == 1920)
                 {
                     Console.WriteLine("");
                 }
@@ -440,7 +440,7 @@ namespace SimpleQuiz
                 // 29일까지 있는 월인 경우 윤년 (연도를 4로 나누어 떨어지는 해)
                 if ((year % 4 == 0) || (count % 100 == 0))
                 {
-                    if(month==2)
+                    if (month == 2)
                     {
                         for (int i = 0; i < 6; i++)
                         {
@@ -478,13 +478,13 @@ namespace SimpleQuiz
                         }
                     }
                 }
-                else if(month==2) // 28일까지 있는 월인 경우
+                else if (month == 2) // 28일까지 있는 월인 경우
                 {
-                    for(int i=0;i<6;i++)
+                    for (int i = 0; i < 6; i++)
                     {
-                        for(int j=0;j<7;j++)
+                        for (int j = 0; j < 7; j++)
                         {
-                            if (index<=28)
+                            if (index <= 28)
                             {
                                 if (last_day > 0)
                                 {
@@ -601,7 +601,7 @@ namespace SimpleQuiz
                 }
                 index = 1;
                 month++;
-                if(month>12)
+                if (month > 12)
                 {
                     month = 1;
                     year++;
@@ -615,8 +615,8 @@ namespace SimpleQuiz
             // n! 이라는 표기법은 n × (n − 1) × ... × 3 × 2 × 1을 뜻합니다.
             // 예를 들자면 10! = 10 × 9 × ... × 3 × 2 × 1 = 3628800 이 되는데,
             // 여기서 10!의 각 자리수를 더해 보면 3 + 6 + 2 + 8 + 8 + 0 + 0 = 27 입니다.
-
             // 100! 의 자리수를 모두 더하면 얼마입니까?
+
             int[] factorialValue = new int[160];
             int[] CopyValue = new int[160];
             int top = 1;
@@ -629,7 +629,92 @@ namespace SimpleQuiz
 
             for (int index = 2; index <= 100; index++) // 팩토리얼 값 더하기
             {
-                top = CalculateFactorial(factorialValue, CopyValue,index, top);
+                top = CalculateFactorial2(factorialValue, CopyValue, index, top);
+            }
+        }
+
+        public int CalculateFactorial2(int[] factorialValue, int[] CopyValue, int index, int top)
+        {
+            int doubleValue = 0;
+            int fakeTop = top;
+
+            for (int i = 0; i < fakeTop; i++)
+            {
+                doubleValue = factorialValue[i] * index;
+
+                if (doubleValue + CopyValue[i] < 10)
+                {
+                    CopyValue[i] += doubleValue;
+                }
+                else if (doubleValue == 10)
+                {
+                    top = AddValue2(CopyValue, doubleValue, i, top); // 10의 자리 올려주고
+                    // CopyValue[i] = 0;                             // 나머지 0
+                }
+                else if (doubleValue > 10)
+                {
+                    top = AddValue2(CopyValue, doubleValue, i, top); // 10의 자리 올려주고
+                    // CopyValue[i] = doubleValue % 10;              // 10으로 나눈 나머지                                                                 
+                }
+
+                AllCheck(CopyValue, top);
+            }
+
+            Copy(CopyValue, factorialValue, top);
+            MakeZero2(CopyValue);
+
+            return top;
+        }
+
+        public int AddValue2(int[] CopyValue, int doubleValue, int num, int top)
+        {
+            CopyValue[num] += doubleValue % 10;
+
+            if (doubleValue - CopyValue[num] >= 10)  // 올림이 있을 경우
+            {
+                CopyValue[num + 1] += (doubleValue / 10);  // 올림수만큼 올려주고
+                // CopyValue[num] = CopyValue[num] % 10;       // 남은 부분 남겨주기
+            }
+            else if(doubleValue - CopyValue[num] == 10)
+            {
+                CopyValue[num + 1] += CopyValue[num] / 10;  // 올림수만큼 올려주고
+                CopyValue[num] = 0;                         // 0
+            }
+
+            // top 설정 문제
+            if (num + 1 >= top)
+            {
+                top = num + 2;
+            }
+
+            return top;
+        }
+
+        public void AllCheck(int[] CopyValue, int top)
+        {
+            for (int i = 0; i < top; i++)
+            {
+                if (CopyValue[i] >= 10)
+                {
+                    CopyValue[i + 1] += CopyValue[i] / 10;
+                    CopyValue[i] = CopyValue[i] % 10;
+                }
+            }
+        }
+
+        public void Copy(int[] CopyValue, int[] factorialValue, int top)
+        {
+            for (int i = 0; i < top; i++)
+            {
+                factorialValue[i] = CopyValue[i];
+            }
+        }
+
+        public void MakeZero2(int[] CopyValue)
+        {
+            for(int i=0;i<160;i++)
+            {
+                CopyValue[i] = 0;
             }
         }
 
@@ -637,6 +722,7 @@ namespace SimpleQuiz
         {
             int doubleValue = 0;
             int fakeTop = top;
+            int fakenum = 0;
             for (int num = 0; num < fakeTop; num++)
             {
                 doubleValue = factorialValue[num] * index;
@@ -646,8 +732,12 @@ namespace SimpleQuiz
                 }
                 else if ((CopyValue[num] + doubleValue) >= 10)
                 {
-                    AddValue(CopyValue, num, doubleValue, index);
-                    if (num+1 >= top)
+                    fakenum = AddValue(CopyValue, num, doubleValue, index);
+                    if(fakenum>top)
+                    {
+                        top = fakenum+1;
+                    }
+                    for(int i=num+1;i>=top;)
                     {
                         top++;
                     }
@@ -658,28 +748,44 @@ namespace SimpleQuiz
             return top;
         }
 
-        public void AddValue(int[] CopyValue, int num, int doubleValue, int index)
+        public int AddValue(int[] CopyValue, int num, int doubleValue, int index)
         {
-            // 1의 자리 입력
-            if (CopyValue[num] + (doubleValue % 10) < 10)
-            {
-                CopyValue[num] += doubleValue % 10;
-            }
-            else if(CopyValue[num] + (doubleValue%10)>=10)
-            {
-                // 문제 : AddValue(CopyValue, num + 1, (CopyValue[num + 1] + (doubleValue / 10)), index);
-            }
+            CopyValue[num] += doubleValue % 10;
 
-            // 기존 10의 자리 + 올라온 10의 자리 합이 10보다 클 때
-            if((CopyValue[num + 1] + (doubleValue / 10)) >= 10)
+            if (CopyValue[num] >= 10)
             {
-                
+                CopyValue[num + 1] += CopyValue[num] / 10;
+                CopyValue[num] = CopyValue[num] % 10;
             }
-            if((CopyValue[num + 1] + (doubleValue / 10)) < 10)
+            // 기존 10의 자리 + 올라온 10의 자리 합이 10보다 클 때
+            if ((CopyValue[num + 1] + (doubleValue / 10)) > 10)
+            {
+                CopyValue[num + 2] += (CopyValue[num + 1] + (doubleValue / 10)) / 10;
+                if ((CopyValue[num+1] + (CopyValue[num] + doubleValue - ((doubleValue / 100) * 100) - doubleValue % 10) / 10) == 10)
+                {
+                    CopyValue[num + 1] = 0;
+                }
+                else if (((CopyValue[num] + doubleValue - ((doubleValue / 100) * 100) - doubleValue % 10) / 10) < 10)
+                {
+                    CopyValue[num + 1] += (CopyValue[num] + doubleValue - ((doubleValue / 100) * 100) - doubleValue % 10) / 10;
+                }
+                return num + 2;
+            }
+            else if ((CopyValue[num + 1] + (doubleValue / 10)) == 10)
+            {
+                CopyValue[num + 2] += (CopyValue[num + 1] + (doubleValue / 10)) / 10;
+                CopyValue[num + 1] = 0;
+                return num + 2;
+            }
+            else if ((CopyValue[num + 1] + (doubleValue / 10)) < 10)
             {
                 CopyValue[num + 1] = (CopyValue[num + 1] + (doubleValue / 10));
+                return num + 1;
             }
-
+            else
+            {
+                return num;
+            }
         }
 
         public void MakeCopyValue(int[] CopyValue, int[] factorialValue, int top)
